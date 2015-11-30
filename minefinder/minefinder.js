@@ -67,8 +67,10 @@
     return false;
   };
 
-  var Board = window.Minefinder.Board = function (gridSize, numBombs) {
-    this.gridSize = gridSize;
+  var Board = window.Minefinder.Board =
+    function (gridHeight, gridWidth, numBombs) {
+    this.gridHeight = gridHeight;
+    this.gridWidth = gridWidth;
     this.grid = [];
     this.numBombs = numBombs;
     this.generateBoard();
@@ -76,9 +78,9 @@
   };
 
   Board.prototype.generateBoard = function () {
-    for (var i = 0; i < this.gridSize; i++) {
+    for (var i = 0; i < this.gridHeight; i++) {
       this.grid.push([]);
-      for (var j = 0; j < this.gridSize; j++) {
+      for (var j = 0; j < this.gridWidth; j++) {
         var tile = new Minefinder.Tile(this, [i, j]);
         this.grid[i].push(tile);
       }
@@ -87,16 +89,16 @@
 
   Board.prototype.onBoard = function (pos) {
     return (
-      pos[0] >= 0 && pos[0] < this.gridSize &&
-        pos[1] >= 0 && pos[1] < this.gridSize
+      pos[0] >= 0 && pos[0] < this.gridHeight &&
+        pos[1] >= 0 && pos[1] < this.gridWidth
     );
   };
 
   Board.prototype.plantBombs = function () {
     var totalPlantedBombs = 0;
     while (totalPlantedBombs < this.numBombs) {
-      var row = Math.floor(Math.random() * (this.gridSize - 1));
-      var col = Math.floor(Math.random() * (this.gridSize - 1));
+      var row = Math.floor(Math.random() * (this.gridHeight - 1));
+      var col = Math.floor(Math.random() * (this.gridWidth - 1));
 
       var tile = this.grid[row][col];
       if (!tile.bombed) {

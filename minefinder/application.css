@@ -27,6 +27,11 @@ h1 {
   font-size: 48px;
 }
 
+button {
+  padding: 10px;
+  font-size: 16px;
+}
+
 .group {
   content: "";
   display: block;
@@ -64,8 +69,8 @@ h1 {
 }
 
 .game {
-  width: 420px;
-  height: 420px;
+  width: 630px;
+  height: 315px;
   margin: auto;
   /*border: 2px solid black;*/
   box-shadow: 2px 2px 5px #000;
@@ -92,7 +97,12 @@ h1 {
 }
 
 .bombed {
-  background: red;
+  font-size: 10px;
+  background: darkred;
+}
+
+.safebombed {
+  font-size: 10px;
 }
 
 .flagged {

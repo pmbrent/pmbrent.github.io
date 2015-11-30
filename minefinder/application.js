@@ -3,7 +3,9 @@ var M = Minefinder;
 var Game = React.createClass({
   getInitialState: function() {
     return {
-      board: new M.Board(this.props.gridSize, this.props.numBombs),
+      board: new M.Board(this.props.gridHeight,
+                         this.props.gridWidth,
+                         this.props.numBombs),
       gameOver: false,
       gameWon: false
     };
@@ -18,7 +20,9 @@ var Game = React.createClass({
   },
   resetGame: function() {
     this.setState({
-      board: new M.Board(this.props.gridSize, this.props.numBombs),
+      board: new M.Board(this.props.gridHeight,
+                         this.props.gridWidth,
+                         this.props.numBombs),
       gameOver: false,
       gameWon: false
     });
@@ -37,7 +41,7 @@ var Game = React.createClass({
           </div>
         </div>
         <Board board={this.state.board} gameOver={this.state.gameOver}
-          updateGame={this.updateGame} />
+          gameWon={this.state.gameWon} updateGame={this.updateGame} />
       </div>
     );
   }
@@ -46,15 +50,17 @@ var Game = React.createClass({
 var Board = React.createClass({
   render: function() {
       var tiles = this.props.board.grid.map(function(row, rowIdx) {
-        var gridSize = this.props.board.gridSize;
+        var gridHeight = this.props.board.gridHeight;
+        var gridWidth = this.props.board.gridWidth;
         return(
           <div className="row group">
             {row.map(function(tile, idx) {
-              var tileIdx = rowIdx * gridSize + idx;
+              var tileIdx = rowIdx * gridWidth + idx;
               return (
                 <Tile key={tileIdx} tile={tile}
                   updateGame={this.props.updateGame}
                   gameOver={this.props.gameOver}
+                  gameWon={this.props.gameWon}
                 />
               );
             }, this)}
@@ -77,12 +83,17 @@ var Tile = React.createClass({
     var content, tile = this.props.tile, className = "tile";
 
     if (this.props.gameOver && tile.bombed) {
-      content = "💣";
-      className += " bombed revealed";
+      if (this.props.gameWon) {
+        content = "💣";
+        className += " safebombed revealed";
+      } else {
+        content = "💥";
+        className += " bombed revealed";
+      }
     } else if (tile.explored) {
       className += " revealed";
       if (tile.bombed) {
-        content = "💣";
+        content = "💥";
         className += " bombed";
       } else {
         content = tile.adjacentBombCount().toString();
