@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://fb.me/JSXTransformer-0.13.3.js" charset="utf-8"></script>
+    <script src="../vendor/jquery-2.1.4.js"></script>
+    <script src="../vendor/react.js"></script>
+    <script src="../vendor/react-dom.js"></script>
+    <script src="minefinder.js" type="text/jsx"></script>
+    <script src="application.js" type="text/jsx"></script>
+
+    <link href="application.css" type="text/css" rel="stylesheet">
+
+    <title>Don't Find the Mines!</title>
+  </head>
+
+  <body>
+    <div id="game"></div>
+
+    <script type="text/jsx">
+      ReactDOM.render(<Game gridSize={20} numBombs={50}/>, document.getElementById("game"))
+    </script>
+  </body>
+</html>
