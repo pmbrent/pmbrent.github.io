@@ -3073,8 +3073,9 @@
 	}
 
 	.tech_group img {
-		height: 60px;
+		height: 75px;
 		display: block;
+		margin: 5px;
 	}
 
 	.tech_group li {
